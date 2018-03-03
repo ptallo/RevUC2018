@@ -107,3 +107,6 @@ venv.bak/
 
 .gitignore
 .idea/
+revuc-env/*
+
+\.DS_Store
