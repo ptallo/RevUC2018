@@ -1,15 +1,14 @@
 import json
-import tweepy
 
 class TweetData:
 
+    # Constructor
     def __init__(self):
         self.statusId = 0
         self.userName = ''
         self.tweetReplyText = ''
         self.userTimeline = []
         self.userFollowers = []
-
 
     # Sets Status ID
     def setStatusId(self, newStatusId):
@@ -35,4 +34,23 @@ class TweetData:
     def getTweetReplyText(self):
         return self.tweetReplyText
 
-    def addUser
+    # adds status to timeline
+    def addToTimeline(self, status):
+        self.userTimeline.append(status)
+
+    # Get list of status
+    def getTimeline(self):
+        return self.userTimeline
+
+    # set Followers
+    def addUserFollower(self, userName, screenName, userID):
+        tempDict = {}
+        tempDict['screenName'] = screenName
+        tempDict['userName'] = userName
+        tempDict['userId'] = userID
+        self.userFollowers.append(tempDict)
+
+    # Get Followers
+    def getUserFollowers(self):
+        return self.userFollowers
+    
