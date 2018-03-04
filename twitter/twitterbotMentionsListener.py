@@ -57,11 +57,11 @@ def doReply(api):
 
 # Sends the reply
 def sendReply(TweetData, api):
-    SimpleResponses = ['Rock on! ', 'Enjoy! ', 'Just for you! ', 'Have a listen! ']
+    SimpleResponses = [' Rock on! ', ' Enjoy! ', ' Just for you! ', ' Have a listen! ']
     response = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
     response += SimpleResponses[randint(0, 3)]
     response += TweetData.getPlayListLink()
-    response += '@'
+    response += ' @'
     response += TweetData.getUserName()
     TweetData.setTweetReplyText(response)
     print(TweetData.getTweetReplyText())
