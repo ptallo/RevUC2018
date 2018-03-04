@@ -1,6 +1,8 @@
 from twitter import TweetData
 import json
 import time
+import datetime
+from random import *
 
 def getMention(api):
     mentions = api.mentions_timeline(count=0)
@@ -51,6 +53,19 @@ def doReply(api):
         print('Waiting...')
 
     return True
+
+
+# Sends the reply
+def sendReply(TweetData, api):
+    SimpleResponses = ['Rock on! ', 'Enjoy! ', 'Just for you! ', 'Have a listen! ']
+    response = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+    response += SimpleResponses[randint(0, 3)]
+    response += TweetData.getPlayListLink()
+    response += '@'
+    response += TweetData.getUserName()
+    TweetData.setTweetReplyText(response)
+    print(TweetData.getTweetReplyText())
+    api.update_status(TweetData.getTweetReplyText(), in_reply_to_status_id=TweetData.getStatusID())
 
 
 
