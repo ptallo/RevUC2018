@@ -4,10 +4,8 @@ from twitter import twitterbotMentionsListener, twitterbotAutho
 
 def main():
     api = twitterbotAutho.initApi()
-    tweetInfo = twitterbotMentionsListener.getData(api)
-
     twitterbotMentionsListener.doReply(api)
-
+    tweetInfo = twitterbotMentionsListener.getData(api)
     twitterbotMentionsListener.sendReply(tweetInfo, api)
 
     '''

@@ -5,7 +5,7 @@ import datetime
 from random import *
 
 def getMention(api):
-    mentions = api.mentions_timeline(count=0)
+    mentions = api.mentions_timeline(count=1)
 
     readableJson = json.dumps(mentions[0]._json)
 
@@ -57,11 +57,11 @@ def doReply(api):
 
 # Sends the reply
 def sendReply(TweetData, api):
-    SimpleResponses = ['Rock on! ', 'Enjoy! ', 'Just for you! ', 'Have a listen! ']
+    SimpleResponses = [' Rock on! ', ' Enjoy! ', ' Just for you! ', ' Have a listen! ']
     response = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
     response += SimpleResponses[randint(0, 3)]
     response += TweetData.getPlayListLink()
-    response += '@'
+    response += ' @'
     response += TweetData.getUserName()
     TweetData.setTweetReplyText(response)
     print(TweetData.getTweetReplyText())
