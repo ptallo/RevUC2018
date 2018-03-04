@@ -28,7 +28,7 @@ class WatsonAPIObject:
 
         return json_response
 
-    def populateTimelineNLP(self):
+    def populateReturnData(self):
         for text in self.watsonSubmitData:
             watsonJSON = self.watsonNLPCall(text)
             self.watsonReturnData.append(watsonJSON)
