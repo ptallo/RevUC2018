@@ -21,7 +21,8 @@ class WatsonAPIObject:
             text=callText,
             features=Features(
                 sentiment=SentimentOptions(),
-                emotion=EmotionOptions()))
+                emotion=EmotionOptions(),
+                keywords=KewordsOptions()))
 
         json_response = json.dumps(response, indent=2)
 
