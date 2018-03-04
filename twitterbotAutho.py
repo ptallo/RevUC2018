@@ -1,4 +1,5 @@
 import tweepy
+import json
 
 def initApi():
     # Authorization keys
@@ -36,7 +37,3 @@ def initApi():
         print('Error! Failed to get request token.')
 
     return api
-
-
-
-
