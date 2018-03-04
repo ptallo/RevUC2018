@@ -5,7 +5,7 @@ import datetime
 from random import *
 
 def getMention(api):
-    mentions = api.mentions_timeline(count=0)
+    mentions = api.mentions_timeline(count=1)
 
     readableJson = json.dumps(mentions[0]._json)
 
