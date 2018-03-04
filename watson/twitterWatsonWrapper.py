@@ -22,7 +22,7 @@ class WatsonAPIObject:
             features=Features(
                 sentiment=SentimentOptions(),
                 emotion=EmotionOptions(),
-                keywords=KewordsOptions()))
+                keywords=KeywordsOptions()))
 
         json_response = json.dumps(response, indent=2)
 
