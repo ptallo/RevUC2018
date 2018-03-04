@@ -2,7 +2,10 @@ import tensorflow as tf
 
 
 class tensorFlowAPIObject:
-    def __init__(self, dataSet):
+    """
+        The only functions you should use on this class are train() eval() and predict()
+    """
+    def __init__(self, dataSet, n_classes):
         self.featureColumns = []
         for key in dataSet.keys():
             featureColumn = tf.feature_column.numeric_column(key=key)
@@ -10,19 +13,13 @@ class tensorFlowAPIObject:
         self.model = tf.estimator.DNNClassifier(
             feature_columns=self.featureColumns,
             hidden_units=[10, 10],
-            n_classes=7
+            n_classes=n_classes
         )
 
     def trainInputFn(self, features, labels, batch_size):
         dataset = tf.data.Dataset.from_tensor_slices((dict(features), labels))
         dataset = dataset.shuffle(buffer_size=1000).repeat(count=None).batch(batch_size)
         return dataset.make_one_shot_iterator().get_next()
-
-    def train(self, trainDataSet, trainDataSetLabels, batchSize, trainSteps):
-        self.model.train(
-            input_fn=lambda:self.trainInputFn(trainDataSet, trainDataSetLabels, batchSize),
-            steps=trainSteps
-        )
 
     def evalInputFn(self, features, labels=None, batchSize=1000):
         """An input function for evaluation or prediction"""
@@ -41,6 +38,12 @@ class tensorFlowAPIObject:
 
         # Return the read end of the pipeline.
         return dataset.make_one_shot_iterator().get_next()
+
+    def train(self, trainDataSet, trainDataSetLabels, batchSize, trainSteps):
+        self.model.train(
+            input_fn=lambda:self.trainInputFn(trainDataSet, trainDataSetLabels, batchSize),
+            steps=trainSteps
+        )
 
     def eval(self, features, labels, batchSize):
         eval_result = self.model.evaluate(

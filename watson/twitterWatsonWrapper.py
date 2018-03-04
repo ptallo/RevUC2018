@@ -21,13 +21,14 @@ class WatsonAPIObject:
             text=callText,
             features=Features(
                 sentiment=SentimentOptions(),
-                emotion=EmotionOptions()))
+                emotion=EmotionOptions(),
+                keywords=KewordsOptions()))
 
         json_response = json.dumps(response, indent=2)
 
         return json_response
 
-    def populateTimelineNLP(self):
+    def populateReturnData(self):
         for text in self.watsonSubmitData:
             watsonJSON = self.watsonNLPCall(text)
             self.watsonReturnData.append(watsonJSON)
