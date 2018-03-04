@@ -4,6 +4,7 @@ class TweetData:
     def __init__(self):
         self.statusId = 0
         self.userName = ''
+        self.playlistLink = ''
         self.tweetReplyText = ''
         self.userTimeline = []
         self.userFollowers = []
@@ -23,6 +24,14 @@ class TweetData:
     # Get UserName
     def getUserName(self):
         return self.userName
+
+    # Set playlist link
+    def setPlaylistLink(self, link):
+        self.playlistLink = link
+
+    # Get playlist link
+    def getPlayListLink(self):
+        return self.playlistLink
 
     # Set TweetReply
     def setTweetReplyText(self, newTweetReplyText):
