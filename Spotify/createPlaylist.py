@@ -22,9 +22,11 @@ def searchForSongs(word):
     results = spotify.search(word, limit=1, offset=0, type='track')
     tracks=results['tracks']['items']
     trackArr = []
-    for x in range(1):
-        results = spotify.next(results['tracks'])
+    results = spotify.next(results['tracks'])
+    try:
         tracks.extend(results['tracks']['items'])
+    except TypeError:
+        pass
     for track in tracks:
         trackArr.append(track['id'])
     return trackArr

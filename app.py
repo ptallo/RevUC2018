@@ -13,7 +13,7 @@ def makeSpotifyData(watsonJSON):
 
 def main():
     api = twitterbotAutho.initApi()
-    #twitterbotMentionsListener.doReply(api)
+    twitterbotMentionsListener.doReply(api)
     tweetInfo = twitterbotMentionsListener.getData(api)
     # spotify
     print(tweetInfo.getTimeline()[0])
@@ -26,9 +26,9 @@ def main():
 
     keywords = makeSpotifyData(returnJSON)
 
-    createPlaylist.createNewPlaylist(tweetInfo)
+    createPlaylist.createNewPlaylist(tweetInfo, keywords)
     # reply
-    #twitterbotMentionsListener.sendReply(tweetInfo, api)
+    twitterbotMentionsListener.sendReply(tweetInfo, api)
 
 if __name__ == '__main__':
     main()
