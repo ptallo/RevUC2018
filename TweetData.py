@@ -1,5 +1,3 @@
-import json
-
 class TweetData:
 
     # Constructor
@@ -53,4 +51,14 @@ class TweetData:
     # Get Followers
     def getUserFollowers(self):
         return self.userFollowers
-    
+
+    def diagnosticPrint(self):
+        print(self.statusId)
+        print('\n')
+        print(self.userName)
+        print('\n')
+        print(self.tweetReplyText)
+        print('\n')
+        print(self.userTimeline)
+        print('\n')
+        print(self.userFollowers)
