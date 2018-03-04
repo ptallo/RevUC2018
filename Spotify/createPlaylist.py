@@ -4,7 +4,7 @@ from twitter import TweetData
 import json
 
 SPOTIPY_CLIENT_ID='58a4cf7549014e37a775cc19ce2fcb68'
-SPOTIPY_CLIENT_SECRET='62641c88588a4d4f8effd925b3c1206c'
+SPOTIPY_CLIENT_SECRET='be9d8b777a8a48b59a62ced8bdf094b3'
 SPOTIPY_REDIRECT_URI='http://localhost/'
 
 scope = 'playlist-read-private playlist-read-collaborative playlist-modify-public '
@@ -16,11 +16,10 @@ username='obnijrubnzhegv3mrw8c4rr7f'
 
 token = util.prompt_for_user_token(username, scope, SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI)
 
+spotify = spotipy.Spotify(auth=token)
+
 def searchForSongs(word):
-    print('The word is: ' + word)
-    spotify = spotipy.Spotify(auth=token)
     results = spotify.search(word, limit=1, offset=0, type='track')
-    print(results)
     tracks=results['tracks']['items']
     trackArr = []
     for x in range(1):
@@ -30,14 +29,12 @@ def searchForSongs(word):
         trackArr.append(track['id'])
     return trackArr
 
-def createNewPlaylist(TweetData):
-	spotify = spotipy.Spotify(auth=token)
+def createNewPlaylist(TweetData, keywords):
 	if token:
          playlist = spotify.user_playlist_create(username, TweetData.getUserName() + "'s Custom Playlist")
          playlistID = playlist['id']
          songs = []
-         words = TweetData.getTimeline()[0]
-         for word in words.split():
+         for word in keywords:
             songsTemp = searchForSongs(word)
             songs.extend(songsTemp)
          spotify.user_playlist_add_tracks(username, playlistID, songs, position=None)

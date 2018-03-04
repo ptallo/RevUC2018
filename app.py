@@ -1,5 +1,5 @@
 from twitter import twitterbotMentionsListener, twitterbotAutho
-#from Spotify import createPlaylist
+from Spotify import createPlaylist
 from watson import twitterWatsonWrapper
 import json
 
@@ -25,9 +25,8 @@ def main():
     returnJSON = watsonObject.watsonNLPCall(metaTweet)
 
     keywords = makeSpotifyData(returnJSON)
-    print(keywords)
 
-    #createPlaylist.createNewPlaylist(tweetInfo)
+    createPlaylist.createNewPlaylist(tweetInfo)
     # reply
     #twitterbotMentionsListener.sendReply(tweetInfo, api)
 
