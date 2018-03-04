@@ -2,7 +2,7 @@ import spotipy
 
 class songClass:
 
-	def __init__(self, songName, songID):
+	def __init__(self, songURI, songID):
 		self.album = ''
 		self.artists = []
 		self.availableMarket = []
@@ -11,14 +11,17 @@ class songClass:
 		self.explicit = False
 		self.playalbe = True
 		self.trackID = songID
-		self.name = songName
+		self.name = ''
 		self.popularity = 0
 		self.trackNum = 0
-		self.uri = ''
+		self.uri = songURI
 
 	def getName(self):
 		return self.name
 
 	def getTrackID(self):
 		return self.trackID
+
+	def getTrackURI(self):
+		return self.uri
 
