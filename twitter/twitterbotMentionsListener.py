@@ -47,10 +47,10 @@ def doReply(api):
 
     # Compare the IDs
     while newestMentionID < newestTweetID:
+        print('Waiting...')
         time.sleep(120)
         newestMention = getMention(api)
         newestMentionID = newestMention['id']
-        print('Waiting...')
     print('we got one');
     return True
 

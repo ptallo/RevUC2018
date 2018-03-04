@@ -16,7 +16,7 @@ def main():
     twitterbotMentionsListener.doReply(api)
     tweetInfo = twitterbotMentionsListener.getData(api)
     # spotify
-    print(tweetInfo.getTimeline()[0])
+    print('Watson Running')
 
     metaTweet = ""
     for tweet in tweetInfo.getTimeline():
@@ -26,9 +26,13 @@ def main():
 
     keywords = makeSpotifyData(returnJSON)
 
+    print('Watson Complete')
+
     createPlaylist.createNewPlaylist(tweetInfo, keywords)
     # reply
     twitterbotMentionsListener.sendReply(tweetInfo, api)
+    print('Tweeted out playlist')
+
 
 if __name__ == '__main__':
     while True:
