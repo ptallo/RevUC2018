@@ -2,10 +2,10 @@ from twitter import TweetData
 import json
 import time
 
-def getMention(api, num):
-    mentions = api.mentions_timeline(count=num)
+def getMention(api):
+    mentions = api.mentions_timeline(count=0)
 
-    readableJson = json.dumps(mentions[num-1]._json)
+    readableJson = json.dumps(mentions[0]._json)
 
     return json.loads(readableJson)
 
@@ -37,7 +37,7 @@ def getData(api):
 
 def doReply(api):
     # gather latest tweet and mention
-    newestMention = getMention(api, 1)
+    newestMention = getMention(api)
     newestMentionID = newestMention['id']
     newestTweet = api.home_timeline(count=1)
     newestTweetJson = json.loads(json.dumps(newestTweet[0]._json))
@@ -46,7 +46,7 @@ def doReply(api):
     # Compare the IDs
     while newestMentionID < newestTweetID:
         time.sleep(30)
-        newestMention = getMention(api, 1)
+        newestMention = getMention(api)
         newestMentionID = newestMention['id']
         print('Waiting...')
 
