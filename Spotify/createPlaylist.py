@@ -4,7 +4,7 @@ from twitter import TweetData
 import json
 
 SPOTIPY_CLIENT_ID='58a4cf7549014e37a775cc19ce2fcb68'
-SPOTIPY_CLIENT_SECRET='d908e6bba7ec477bb59808b3d1d93d0a'
+SPOTIPY_CLIENT_SECRET='be9d8b777a8a48b59a62ced8bdf094b3'
 SPOTIPY_REDIRECT_URI='http://localhost/'
 
 scope = 'playlist-read-private playlist-read-collaborative playlist-modify-public '
@@ -16,28 +16,28 @@ username='obnijrubnzhegv3mrw8c4rr7f'
 
 token = util.prompt_for_user_token(username, scope, SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI)
 
+spotify = spotipy.Spotify(auth=token)
+
 def searchForSongs(word):
-    spotify = spotipy.Spotify(auth=token)
     results = spotify.search(word, limit=1, offset=0, type='track')
     tracks=results['tracks']['items']
     trackArr = []
-    for x in range(1):
-        results = spotify.next(results['tracks'])
+    results = spotify.next(results['tracks'])
+    try:
         tracks.extend(results['tracks']['items'])
+    except TypeError:
+        pass
     for track in tracks:
         trackArr.append(track['id'])
     return trackArr
 
-def createNewPlaylist(TweetData):
-	spotify = spotipy.Spotify(auth=token)
+def createNewPlaylist(TweetData, keywords):
 	if token:
          playlist = spotify.user_playlist_create(username, TweetData.getUserName() + "'s Custom Playlist")
          playlistID = playlist['id']
          songs = []
-         words = TweetData.getTimeline()[0]
-         for word in words.split():
-             if word[0] != '@':
-                    songsTemp = searchForSongs(word)
-                    songs.extend(songsTemp)
+         for word in keywords:
+            songsTemp = searchForSongs(word)
+            songs.extend(songsTemp)
          spotify.user_playlist_add_tracks(username, playlistID, songs, position=None)
          TweetData.setPlaylistLink(playlist['external_urls']['spotify'])

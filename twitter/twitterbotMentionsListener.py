@@ -26,13 +26,13 @@ def getData(api):
         data.addToTimeline(readableJsonTimeline['text'])
 
     # construct followers
-    followerIds = api.friends_ids(id=mentions['user']['id'])
-    for id in followerIds:
-        user = api.get_user(id)
-        readableUser = json.loads(json.dumps(user._json))
-        screenName = readableUser['screen_name']
-        userName = readableUser['name']
-        data.addUserFollower(userName, screenName, id)
+    # followerIds = api.friends_ids(id=mentions['user']['id'])
+    # for id in followerIds:
+    #     user = api.get_user(id)
+    #     readableUser = json.loads(json.dumps(user._json))
+    #     screenName = readableUser['screen_name']
+    #     userName = readableUser['name']
+    #     data.addUserFollower(userName, screenName, id)
 
     return data
 
@@ -47,11 +47,11 @@ def doReply(api):
 
     # Compare the IDs
     while newestMentionID < newestTweetID:
-        time.sleep(30)
+        time.sleep(120)
         newestMention = getMention(api)
         newestMentionID = newestMention['id']
         print('Waiting...')
-
+    print('we got one');
     return True
 
 
