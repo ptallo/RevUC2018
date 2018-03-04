@@ -8,6 +8,7 @@ def main():
     twitterbotMentionsListener.doReply(api)
     tweetInfo = twitterbotMentionsListener.getData(api)
     # spotify
+    print(tweetInfo.getTimeline()[0])
     createPlaylist.createNewPlaylist(tweetInfo)
     # reply
     twitterbotMentionsListener.sendReply(tweetInfo, api)
