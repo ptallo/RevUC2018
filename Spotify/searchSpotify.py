@@ -1,8 +1,5 @@
-import auth
 import spotipy
-
-birdy_uri = 'spotify:artist:2WX2uTcsvV5OnS0inACecP'
-spotify = spotipy.Spotify(auth=auth.token)
+import auth
 
 results = spotify.artist_albums(birdy_uri, album_type='album')
 albums = results['items']
