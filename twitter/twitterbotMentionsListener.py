@@ -1,7 +1,4 @@
-import tweepy
-
-import TweetData
-import twitterbotAutho
+from twitter import TweetData
 import json
 
 def getMention(api):
@@ -35,12 +32,5 @@ def getData(api):
         data.addUserFollower(userName, screenName, id)
 
     return data
-
-def main():
-    api = twitterbotAutho.initApi()
-    tweetInfo = getData(api)
-
-if __name__ == '__main__':
-    main()
 
 
