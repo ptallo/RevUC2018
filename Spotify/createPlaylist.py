@@ -50,11 +50,9 @@ def getPlaylist():
     playlistInfo = spotify.user_playlist_tracks(userID, playlist_id=playlistID)
     newPlaylistInfo = json.dumps(playlistInfo['items'])
     data = json.loads(newPlaylistInfo)
-    print(data)
-    print(type(newPlaylistInfo))
-    print(type(data))
 
-
+    for dataDict in data:
+        print(dataDict['track']['name'])
 
     '''
     file = open("/Users/christopherochs/HackAThon/TwitterSpotifyML/RevUC2018/SpotifyPlaylistOutput.txt","w")
