@@ -1,7 +1,8 @@
 import spotipy
 import spotipy.util as util
-from twitter import TweetData
+#from twitter import TweetData
 import json
+import os
 
 SPOTIPY_CLIENT_ID='58a4cf7549014e37a775cc19ce2fcb68'
 SPOTIPY_CLIENT_SECRET='be9d8b777a8a48b59a62ced8bdf094b3'
@@ -41,3 +42,25 @@ def createNewPlaylist(TweetData, keywords):
             songs.extend(songsTemp)
          spotify.user_playlist_add_tracks(username, playlistID, songs, position=None)
          TweetData.setPlaylistLink(playlist['external_urls']['spotify'])
+
+def getPlaylist():
+    spotify = spotipy.Spotify(auth=token)
+    userID = 1258592749
+    playlistID = '75Jkqn3PbntniS7Q4Pf3YK'
+    playlistInfo = spotify.user_playlist_tracks(userID, playlist_id=playlistID)
+    newPlaylistInfo = json.dumps(playlistInfo['items'])
+    data = json.loads(newPlaylistInfo)
+    print(data)
+    print(type(newPlaylistInfo))
+    print(type(data))
+
+
+
+    '''
+    file = open("/Users/christopherochs/HackAThon/TwitterSpotifyML/RevUC2018/SpotifyPlaylistOutput.txt","w")
+    file.write(playlistInfo['items'])
+    file.close()
+    '''
+
+getPlaylist()
+
