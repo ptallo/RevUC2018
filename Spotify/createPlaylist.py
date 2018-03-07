@@ -1,7 +1,8 @@
 import spotipy
 import spotipy.util as util
-from twitter import TweetData
+#from twitter import TweetData
 import json
+import os
 
 SPOTIPY_CLIENT_ID='58a4cf7549014e37a775cc19ce2fcb68'
 SPOTIPY_CLIENT_SECRET='be9d8b777a8a48b59a62ced8bdf094b3'
@@ -41,3 +42,39 @@ def createNewPlaylist(TweetData, keywords):
             songs.extend(songsTemp)
          spotify.user_playlist_add_tracks(username, playlistID, songs, position=None)
          TweetData.setPlaylistLink(playlist['external_urls']['spotify'])
+
+def getPlaylistSongsGenres():
+    spotify = spotipy.Spotify(auth=token)
+    userID = 1258592749
+    playlistID = '1fVHU0nJqHmHlF7tzOkYC4'
+    acceptedGenres = ['pop', 'rock', 'country', 'rap', 'hip hop', 'jazz', 'edm', 'classical']
+
+    playlistInfo = spotify.user_playlist_tracks(userID, playlist_id=playlistID, offset=0)
+    newPlaylistInfo = json.dumps(playlistInfo['items'])
+    data = json.loads(newPlaylistInfo)
+
+    file = open("/Users/christopherochs/HackAThon/TwitterSpotifyML/RevUC2018/SpotifyPlaylistOutput.txt", "w")
+
+    for x in range(9):
+        playlistInfo = spotify.user_playlist_tracks(userID, playlist_id=playlistID, offset=x*100)
+        newPlaylistInfo = json.dumps(playlistInfo['items'])
+        data += json.loads(newPlaylistInfo)
+
+    for item in data:
+        trackName = item['track']['name']
+        artistID = item['track']['artists'][0]['id']
+        artistInfo = spotify.artist(artistID)
+        artistGenres = artistInfo['genres']
+        approvedGenres = ''
+        for genre in artistGenres:
+            if(genre in acceptedGenres):
+                if (approvedGenres != ''):
+                    approvedGenres += (', ' + genre)
+                else:
+                    approvedGenres += (genre)
+        if approvedGenres != '':
+            file.write(trackName + ' : ' + approvedGenres + '\n')
+    print(len(data))
+
+    file.close()
+

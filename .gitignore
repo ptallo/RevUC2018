@@ -111,3 +111,5 @@ revuc-env/*
 
 revuc2018-env/*
 \.DS_Store
+
+*.zip
