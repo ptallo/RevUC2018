@@ -43,11 +43,11 @@ def createNewPlaylist(TweetData, keywords):
          spotify.user_playlist_add_tracks(username, playlistID, songs, position=None)
          TweetData.setPlaylistLink(playlist['external_urls']['spotify'])
 
-def getPlaylist():
+def getPlaylistSongsGenres():
     spotify = spotipy.Spotify(auth=token)
     userID = 1258592749
     playlistID = '1fVHU0nJqHmHlF7tzOkYC4'
-    acceptedGenres = ['pop', 'rock', 'country', 'rap', 'hip hop', 'jazz']
+    acceptedGenres = ['pop', 'rock', 'country', 'rap', 'hip hop', 'jazz', 'edm', 'classical']
 
     playlistInfo = spotify.user_playlist_tracks(userID, playlist_id=playlistID, offset=0)
     newPlaylistInfo = json.dumps(playlistInfo['items'])
@@ -55,7 +55,7 @@ def getPlaylist():
 
     file = open("/Users/christopherochs/HackAThon/TwitterSpotifyML/RevUC2018/SpotifyPlaylistOutput.txt", "w")
 
-    for x in range(5):
+    for x in range(9):
         playlistInfo = spotify.user_playlist_tracks(userID, playlist_id=playlistID, offset=x*100)
         newPlaylistInfo = json.dumps(playlistInfo['items'])
         data += json.loads(newPlaylistInfo)
@@ -69,7 +69,7 @@ def getPlaylist():
         for genre in artistGenres:
             if(genre in acceptedGenres):
                 if (approvedGenres != ''):
-                    approvedGenres += (genre + ', ')
+                    approvedGenres += (', ' + genre)
                 else:
                     approvedGenres += (genre)
         if approvedGenres != '':
@@ -77,6 +77,4 @@ def getPlaylist():
     print(len(data))
 
     file.close()
-
-getPlaylist()
 
