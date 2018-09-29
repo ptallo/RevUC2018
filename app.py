@@ -22,7 +22,7 @@ def main():
 
     returnJSON = twitterbotMentionsListener.getMetaTweet(tweetInfo)
 
-    keywords = makeSpotifyData(returnJSON)
+    keywords = make_spotify_data(returnJSON)
 
     print('Watson Complete')
 
