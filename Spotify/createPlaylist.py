@@ -4,8 +4,8 @@ import spotipy.util as util
 import json
 import os
 
-SPOTIPY_CLIENT_ID='58a4cf7549014e37a775cc19ce2fcb68'
-SPOTIPY_CLIENT_SECRET='be9d8b777a8a48b59a62ced8bdf094b3'
+SPOTIPY_CLIENT_ID='25337649bc04488da3e0b18801feea86'
+SPOTIPY_CLIENT_SECRET='ae422600a201405081753306b0720f4a'
 SPOTIPY_REDIRECT_URI='http://localhost/'
 
 scope = 'playlist-read-private playlist-read-collaborative playlist-modify-public '
