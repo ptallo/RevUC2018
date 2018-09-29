@@ -3,12 +3,13 @@ from watson_developer_cloud import NaturalLanguageUnderstandingV1
 from watson_developer_cloud.natural_language_understanding_v1 \
 import Features, EntitiesOptions, KeywordsOptions, SentimentOptions, EmotionOptions
 
+
 # Command for Watson Lib : pip install --upgrade watson-developer-cloud
 
 class WatsonAPIObject:
     def __init__(self, stringArrayList):
-        self.watsonSubmitData = stringArrayList # this should be an array where each entry contains a string
-        self.watsonReturnData = [] # this is an array where each entry is a json object corresponding to a watson call
+        self.watsonSubmitData = stringArrayList  # this should be an array where each entry contains a string
+        self.watsonReturnData = []  # this is an array where each entry is a json object corresponding to a watson call
         self.dataSet = {}
 
     def watsonNLPCall(self, callText):
@@ -20,9 +21,9 @@ class WatsonAPIObject:
         response = natural_language_understanding.analyze(
             text=callText,
             features=Features(
-                sentiment=SentimentOptions(),
-                emotion=EmotionOptions(),
-                keywords=KeywordsOptions()))
+            sentiment=SentimentOptions(),
+            emotion=EmotionOptions(),
+            keywords=KeywordsOptions()))
 
         json_response = json.dumps(response, indent=2)
 
@@ -36,17 +37,13 @@ class WatsonAPIObject:
     def populateDataSet(self):
         for entry in self.watsonReturnData:
             watsonDict = json.loads(entry)
-            emotionDict = watsonDict['emotion']['document']['emotion'] # the emotion data for a certain watson json object
+            emotionDict = watsonDict['emotion']['document'][
+                'emotion']  # the emotion data for a certain watson json object
             for key in emotionDict.keys():
                 try:
-                    self.dataSet[key] # testing to see if the key already exists in the dataset
+                    self.dataSet[key]  # testing to see if the key already exists in the dataset
                 except KeyError:
                     self.dataSet[key] = []
                 finally:
                     self.dataSet[key].append(emotionDict[key])
         print(self.dataSet)
-
-
-
-
-

@@ -1,7 +1,8 @@
-from twitter import twitterbotMentionsListener, twitterbotAutho
-from Spotify import createPlaylist
-from watson import twitterWatsonWrapper
 import json
+
+from Spotify import createPlaylist
+from twitter import twitterbotMentionsListener, twitterbotAutho
+
 
 def makeSpotifyData(watsonJSON):
     watsonDict = json.loads(watsonJSON)
@@ -11,6 +12,7 @@ def makeSpotifyData(watsonJSON):
         keywords_array.append(dict['text'])
     return keywords_array
 
+
 def main():
     api = twitterbotAutho.initApi()
     twitterbotMentionsListener.doReply(api)
@@ -18,11 +20,7 @@ def main():
     # spotify
     print('Watson Running')
 
-    metaTweet = ""
-    for tweet in tweetInfo.getTimeline():
-        metaTweet += (" " + tweet) if len(metaTweet)==0 else tweet
-    watsonObject = twitterWatsonWrapper.WatsonAPIObject(tweetInfo.getTimeline())
-    returnJSON = watsonObject.watsonNLPCall(metaTweet)
+    returnJSON = twitterbotMentionsListener.getMetaTweet(tweetInfo)
 
     keywords = makeSpotifyData(returnJSON)
 
@@ -37,5 +35,3 @@ def main():
 if __name__ == '__main__':
     while True:
         main()
-
-

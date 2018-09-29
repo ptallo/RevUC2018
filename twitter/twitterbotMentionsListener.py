@@ -1,8 +1,10 @@
 from twitter import TweetData
+from watson import twitterWatsonWrapper
+from random import *
 import json
 import time
 import datetime
-from random import *
+
 
 def getMention(api):
     mentions = api.mentions_timeline(count=1)
@@ -10,6 +12,7 @@ def getMention(api):
     readableJson = json.dumps(mentions[0]._json)
 
     return json.loads(readableJson)
+
 
 # populates data and returns TweetData Object
 def getData(api):
@@ -68,13 +71,9 @@ def sendReply(TweetData, api):
     api.update_status(TweetData.getTweetReplyText(), in_reply_to_status_id=TweetData.getStatusID())
 
 
-
-
-
-
-
-
-
-
-
-
+def getMetaTweet(tweetInfo):
+    metaTweet = ""
+    for tweet in tweetInfo.getTimeline():
+        metaTweet += (" " + tweet) if len(metaTweet) == 0 else tweet
+    watsonObject = twitterWatsonWrapper.WatsonAPIObject(tweetInfo.getTimeline())
+    return watsonObject.watsonNLPCall(metaTweet)
