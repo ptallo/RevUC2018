@@ -13,11 +13,12 @@ scope += 'playlist-modify-private streaming ugc-image-upload user-follow-modify 
 scope += 'user-follow-read user-library-read user-library-modify user-read-private '
 scope += 'user-top-read user-read-playback-state user-modify-playback-state '
 scope += 'user-read-currently-playing user-read-recently-played'
-username='obnijrubnzhegv3mrw8c4rr7f'
+username = 'obnijrubnzhegv3mrw8c4rr7f'
 
 token = util.prompt_for_user_token(username, scope, SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI)
 
 spotify = spotipy.Spotify(auth=token)
+
 
 def searchForSongs(word):
     results = spotify.search(word, limit=1, offset=0, type='track')
@@ -33,15 +34,15 @@ def searchForSongs(word):
     return trackArr
 
 def createNewPlaylist(TweetData, keywords):
-	if token:
-         playlist = spotify.user_playlist_create(username, TweetData.getUserName() + "'s Custom Playlist")
-         playlistID = playlist['id']
-         songs = []
-         for word in keywords:
+    if token:
+        playlist = spotify.user_playlist_create(username, TweetData.getUserName() + "'s Custom Playlist")
+        playlistID = playlist['id']
+        songs = []
+        for word in keywords:
             songsTemp = searchForSongs(word)
             songs.extend(songsTemp)
-         spotify.user_playlist_add_tracks(username, playlistID, songs, position=None)
-         TweetData.setPlaylistLink(playlist['external_urls']['spotify'])
+            spotify.user_playlist_add_tracks(username, playlistID, songs, position=None)
+            TweetData.setPlaylistLink(playlist['external_urls']['spotify'])
 
 def getPlaylistSongsGenres():
     spotify = spotipy.Spotify(auth=token)
