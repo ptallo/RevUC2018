@@ -4,7 +4,7 @@ from Spotify import createPlaylist
 from twitter import twitterbotMentionsListener, twitterbotAutho
 
 
-def makeSpotifyData(watsonJSON):
+def make_spotify_data(watsonJSON):
     watsonDict = json.loads(watsonJSON)
     keywords = watsonDict['keywords']
     keywords_array = []
